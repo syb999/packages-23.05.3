@@ -35,7 +35,7 @@ endef
 
 define Package/imagemagick
   $(call Package/imagemagick/Default)
-  DEPENDS:=+libltdl +libpthread +zlib +libfreetype +libpng +libjpeg +libtiff
+  DEPENDS:=+libltdl +libpthread +zlib +libfreetype +libpng +libjpeg +libtiff +libwebp
 endef
 
 define Package/imagemagick/description
@@ -95,7 +95,6 @@ CONFIGURE_ARGS += \
 	--without-openjp2 \
 	--without-raqm \
 	--without-raw \
-	--without-webp \
 	--without-x \
 	--without-zstd \
 	--without-gslib \
@@ -108,7 +107,8 @@ CONFIGURE_ARGS += \
 	--with-freetype \
 	--with-jpeg \
 	--with-png \
-	--with-tiff
+	--with-tiff \
+	--with-webp
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
