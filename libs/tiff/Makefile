@@ -37,6 +37,14 @@ $(call Package/tiff/Default)
   ABI_VERSION:=6
 endef
 
+define Package/libtiff-dev
+  SECTION:=devel
+  CATEGORY:=Development
+  SUBMENU:=Libraries
+  DEPENDS:=libtiff
+  TITLE:=Development files for the libtiff library
+endef
+
 define Package/tiff-utils
 $(call Package/tiff/Default)
   SECTION:=utils
@@ -78,10 +86,21 @@ define Package/libtiff/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libtiff.so.$(ABI_VERSION)* $(1)/usr/lib
 endef
 
+define Package/libtiff-dev/install
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libtiff.a $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/libtiff-4.pc \
+	  $(1)/usr/lib/pkgconfig
+endef
+
 define Package/tiff-utils/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,libtiff))
+$(eval $(call BuildPackage,libtiff-dev))
 $(eval $(call BuildPackage,tiff-utils))
