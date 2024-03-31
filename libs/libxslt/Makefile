@@ -144,6 +144,10 @@ define Package/libxslt/install
 endef
 
 define Package/libexslt/install
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) \
+		$(PKG_INSTALL_DIR)/usr/include/libexslt/*.h \
+		$(1)/usr/include/
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) \
 		$(PKG_INSTALL_DIR)/usr/lib/libexslt.so* \
