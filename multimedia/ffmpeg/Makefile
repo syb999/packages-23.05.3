@@ -404,7 +404,7 @@ FFMPEG_CONFIGURE:= \
 	--disable-lzma \
 	--disable-vaapi \
 	--disable-vdpau \
-	--disable-outdevs
+	--enable-outdev=alsa
 
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 FFMPEG_CONFIGURE+= \
@@ -497,6 +497,11 @@ ifeq ($(BUILD_VARIANT),full)
 		--enable-libx264
   else
 	FFMPEG_CONFIGURE+= $(if $(CONFIG_PACKAGE_fdk-aac),--enable-libfdk-aac)
+  endif
+
+  ifneq ($(CONFIG_PACKAGE_libfreetype),)
+	FFMPEG_CONFIGURE+= \
+		--enable-libfreetype
   endif
 endif
 
